@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/cardview"
+	app:cardCornerRadius="4dp"
+	android:clickable="true"
+	android:layout_height="wrap_content"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:layout_width="wrap_content">
+
+	<RelativeLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<ImageView
+			android:adjustViewBounds="true"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/imageView"/>
+
+		<TextView
+			android:id="@+id/onlineTextView"
+			android:layout_alignBottom="@id/imageView"
+			android:layout_alignParentRight="true"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="#70E91E63"
+			android:padding="2dp"
+			android:layout_margin="3dp"/>
+
+		<TextView
+			android:layout_below="@id/imageView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textColor="#000000"
+			android:id="@+id/titleView"
+			android:paddingTop="8dp"
+			android:paddingLeft="10dp"
+			android:paddingBottom="8dp"/>
+
+		<TextView
+			android:layout_below="@id/titleView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="left|center_vertical"
+			android:textColor="#B5B5B5"
+			android:id="@+id/endepcount"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:paddingLeft="10dp"
+			android:paddingBottom="5dp"/>
+
+	</RelativeLayout>
+
+</android.support.v7.widget.CardView>
+

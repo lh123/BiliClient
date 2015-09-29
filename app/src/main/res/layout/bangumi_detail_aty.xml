@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:orientation="vertical">
+
+	<include
+		layout="@layout/toolbar"/>
+
+	<RelativeLayout
+		app:layout_scrollFlags="scroll|enterAlways"
+		android:id="@+id/header"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp">
+
+		<ImageView
+			android:id="@+id/cover"
+			android:layout_width="84.0dip"
+			android:layout_height="wrap_content"/>
+
+		<TextView
+			android:ellipsize="end"
+			android:gravity="center_vertical"
+			android:id="@+id/title"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="8.0dip"
+			android:maxLines="2"
+			android:layout_toRightOf="@id/cover"
+			android:layout_alignTop="@id/cover"
+			android:textColor="#000000"/>
+
+		<TextView
+			android:textColor="?android:textColorSecondary"
+			android:id="@+id/info_views"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12.0dip"
+			android:drawableLeft="@drawable/ic_info_views2"
+			android:drawablePadding="2.0dip"
+			android:layout_below="@id/title"
+			android:layout_alignLeft="@id/title"/>
+
+		<TextView
+			android:textColor="?android:textColorSecondary"
+			android:id="@+id/info_danmakus"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="8.0dip"
+			android:layout_marginTop="12.0dip"
+			android:drawableLeft="@drawable/ic_info_danmakus2"
+			android:drawablePadding="2.0dip"
+			android:layout_toRightOf="@id/info_views"
+			android:layout_below="@id/title"/>
+
+		<TextView
+			android:textColor="?android:textColorSecondary"
+			android:id="@+id/info_date"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12.0dip"
+			android:layout_below="@id/info_views"
+			android:layout_alignLeft="@id/title"/>
+
+	</RelativeLayout>
+
+</LinearLayout>
+

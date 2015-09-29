@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+
+	<ImageView
+		android:adjustViewBounds="true"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:id="@+id/imageView"/>
+
+	<com.lh.biliclient.widget.CircleImageView
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:id="@+id/up_face"
+		android:layout_alignBottom="@id/title"
+		android:layout_marginLeft="10dp"/>
+
+	<TextView
+		android:id="@+id/title"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_below="@id/imageView"
+		android:layout_toRightOf="@id/up_face"
+		android:singleLine="true"
+		android:ellipsize="end"
+		android:layout_marginLeft="10dp"
+		android:textColor="#000000"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_below="@id/title"
+		android:id="@+id/online"
+		android:layout_marginLeft="10dp"
+		android:layout_marginBottom="8dp"
+		android:background="#BBBBBB"
+		android:padding="1dp"
+		android:textSize="10sp"
+		android:layout_marginTop="5dp"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_toRightOf="@id/online"
+		android:layout_below="@id/title"
+		android:layout_marginLeft="10dp"
+		android:id="@+id/up_name"
+		android:layout_marginTop="5dp"/>
+
+</RelativeLayout>
+

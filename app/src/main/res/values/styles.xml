@@ -1,0 +1,17 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+	
+	<style name="tabLayout" parent="Widget.Design.TabLayout">
+		<item name="tabIndicatorColor">@color/white</item>
+		<item name="tabIndicatorHeight">2dp</item>
+		<item name="tabPaddingStart">12dp</item>
+		<item name="tabPaddingEnd">12dp</item>
+		<item name="tabBackground">@android:color/transparent</item>
+		<item name="tabSelectedTextColor">@color/white</item>
+	</style>
+</resources>
