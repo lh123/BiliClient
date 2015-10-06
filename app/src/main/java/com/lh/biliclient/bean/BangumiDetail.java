@@ -25,7 +25,28 @@ public class BangumiDetail
 	private String seasonTitle;
 	private String shareUrl;
 	private String staff;
+	private String weekday;
+	private String title;
 
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+
+	public String getTitle()
+	{
+		return title;
+	}
+
+	public void setWeekday(String weekday)
+	{
+		this.weekday = weekday;
+	}
+
+	public String getWeekday()
+	{
+		return weekday;
+	}
 	public void setAlias(String alias)
 	{
 		this.alias = alias;

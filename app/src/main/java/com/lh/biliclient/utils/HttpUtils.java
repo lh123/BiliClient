@@ -2,7 +2,7 @@ package com.lh.biliclient.utils;
 import android.content.*;
 import java.io.*;
 import java.net.*;
-import android.graphics.*;
+import javax.net.ssl.*;
 
 public class HttpUtils
 {
@@ -38,7 +38,33 @@ public class HttpUtils
 		{}
 		return null;
 	}
-
+	
+	public static String getHttpsCommonContent(String path)
+	{
+		try
+		{
+			URL url=new URL(path);
+			HttpsURLConnection connect=(HttpsURLConnection) url.openConnection();
+			connect.setConnectTimeout(3000);
+			connect.setRequestProperty("User-Agent", "Mozilla/5.0 BiliDroid/4.5.1 (bbcallen@gmail.com)");
+			InputStream is=connect.getInputStream();
+			int len=-1;
+			StringBuilder sb=new StringBuilder();
+			byte[] by=new byte[1024];
+			while ((len = is.read(by)) != -1)
+			{
+				sb.append(new String(by, 0, len));
+			}
+			is.close();
+			return sb.toString();
+		}
+		catch (MalformedURLException e)
+		{}
+		catch (IOException e)
+		{}
+		return null;
+	}
+	
 	public static String getHttpContentWithCache(String urlPath, String filePath, String name, boolean match)
 	{
 		try

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
 					BiliData.recommendList=BiliApi.getInstance().getRecommendList();
 					BiliData.indexData=BiliApi.getInstance().getIndexData();
 					BiliData.indexBannerList=BiliApi.getInstance().getIndexBannerObj();
+					//BiliApi.getInstance().getBPRankList(2862151);
 					if(BangumiFragment.handler!=null)
 					{
 						BangumiFragment.handler.sendEmptyMessage(BangumiFragment.REFRESH_SUCCESS);

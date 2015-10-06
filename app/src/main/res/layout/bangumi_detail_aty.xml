@@ -6,66 +6,94 @@
 	android:layout_width="match_parent"
 	android:orientation="vertical">
 
-	<include
-		layout="@layout/toolbar"/>
+	<android.support.design.widget.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
 
-	<RelativeLayout
-		app:layout_scrollFlags="scroll|enterAlways"
-		android:id="@+id/header"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp">
+		<include
+			layout="@layout/toolbar"/>
 
-		<ImageView
-			android:id="@+id/cover"
-			android:layout_width="84.0dip"
-			android:layout_height="wrap_content"/>
+	</android.support.design.widget.AppBarLayout>
 
-		<TextView
-			android:ellipsize="end"
-			android:gravity="center_vertical"
-			android:id="@+id/title"
-			android:layout_width="fill_parent"
+	<com.lh.biliclient.widget.ScrollableLayout
+		android:id="@+id/bangumi_scrollablelayout"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:orientation="vertical">
+
+		<RelativeLayout
+			android:id="@+id/header"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="8.0dip"
-			android:maxLines="2"
-			android:layout_toRightOf="@id/cover"
-			android:layout_alignTop="@id/cover"
-			android:textColor="#000000"/>
+			android:background="@color/white"
+			android:padding="10dp">
 
-		<TextView
-			android:textColor="?android:textColorSecondary"
-			android:id="@+id/info_views"
-			android:layout_width="wrap_content"
+			<ImageView
+				android:id="@+id/cover"
+				android:layout_width="84.0dip"
+				android:layout_height="wrap_content"
+				android:adjustViewBounds="true"
+				android:scaleType="fitXY"/>
+
+			<TextView
+				android:ellipsize="end"
+				android:gravity="center_vertical"
+				android:id="@+id/title"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="8.0dip"
+				android:maxLines="2"
+				android:minLines="1"
+				android:layout_toRightOf="@id/cover"
+				android:layout_alignTop="@id/cover"
+				android:textColor="#000000"/>
+
+			<TextView
+				android:textColor="?android:textColorSecondary"
+				android:id="@+id/info_views"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="12.0dip"
+				android:drawableLeft="@drawable/ic_info_views2"
+				android:drawablePadding="2.0dip"
+				android:layout_below="@id/title"
+				android:layout_alignLeft="@id/title"/>
+
+			<TextView
+				android:textColor="?android:textColorSecondary"
+				android:id="@+id/info_danmakus"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="8.0dip"
+				android:layout_marginTop="12.0dip"
+				android:drawableLeft="@drawable/ic_info_danmakus2"
+				android:drawablePadding="2.0dip"
+				android:layout_toRightOf="@id/info_views"
+				android:layout_below="@id/title"/>
+
+			<TextView
+				android:textColor="?android:textColorSecondary"
+				android:id="@+id/info_date"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="12.0dip"
+				android:layout_below="@id/info_views"
+				android:layout_alignLeft="@id/title"/>
+
+		</RelativeLayout>
+
+		<android.support.design.widget.TabLayout
+			android:id="@+id/tab_layout"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="12.0dip"
-			android:drawableLeft="@drawable/ic_info_views2"
-			android:drawablePadding="2.0dip"
-			android:layout_below="@id/title"
-			android:layout_alignLeft="@id/title"/>
+			android:background="@color/white"/>
 
-		<TextView
-			android:textColor="?android:textColorSecondary"
-			android:id="@+id/info_danmakus"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginLeft="8.0dip"
-			android:layout_marginTop="12.0dip"
-			android:drawableLeft="@drawable/ic_info_danmakus2"
-			android:drawablePadding="2.0dip"
-			android:layout_toRightOf="@id/info_views"
-			android:layout_below="@id/title"/>
-
-		<TextView
-			android:textColor="?android:textColorSecondary"
-			android:id="@+id/info_date"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="12.0dip"
-			android:layout_below="@id/info_views"
-			android:layout_alignLeft="@id/title"/>
-
-	</RelativeLayout>
+		<android.support.v4.view.ViewPager
+			android:id="@+id/viewpager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+		
+	</com.lh.biliclient.widget.ScrollableLayout>
 
 </LinearLayout>
 

@@ -81,8 +81,17 @@ public class BiliApi
 			detail.setCover(result.optString("cover",null));
 			detail.setDanmakuCount(result.optString("danmaku_count",null));
 			detail.setEvaluate(result.optString("evaluate",null));
-			//detail.se
-			
+			detail.setNewestEpId(result.optString("newest_ep_id",null));
+			detail.setNewestEpIndex(result.optString("newest_ep_index",null));
+			detail.setPlayCount(result.optString("play_count",null));
+			detail.setPubTime(result.optString("pub_time",null));
+			detail.setSeasonId(result.optString("season_id",null));
+			detail.setSeasonTitle(result.optString("season_title",null));
+			detail.setShareUrl(result.optString("share_url"));
+			detail.setStaff(result.optString("staff",null));
+			detail.setTitle(result.optString("title",null));
+			detail.setWeekday(result.optString("weekday",null));
+			return detail;
 		}
 		catch (JSONException e)
 		{}
@@ -371,4 +380,35 @@ public class BiliApi
 		return null;
 	}
 	
+	public ArrayList<BPRankObj> getBPRankList(String aid)
+	{
+		String json=HttpUtils.getHttpsCommonContent(BiliUtils.getBpList(aid));
+		try
+		{
+			ArrayList<BPRankObj> list=new ArrayList<BPRankObj>();
+			JSONObject parentJs=new JSONObject(json);
+			if (parentJs.optInt("code", -1) != 0)
+				return null;
+			JSONObject data=parentJs.getJSONObject("data");
+			int users=data.optInt("users",0);
+			JSONArray array=data.getJSONArray("list");
+			for(int i=0;i<array.length();i++)
+			{
+				JSONObject temp=array.getJSONObject(i);
+				BPRankObj obj=new BPRankObj();
+				obj.setUsers(users);
+				obj.setUid(temp.optString("uid",null));
+				obj.setHidden(temp.optString("hidden",null));
+				obj.setRank(temp.optString("rank",null));
+				obj.setMessage(temp.optString("message",null));
+				obj.setUname(temp.optString("uname",null));
+				obj.setFace(temp.optString("face",null));
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (JSONException e)
+		{}
+		return null;
+	}
 }

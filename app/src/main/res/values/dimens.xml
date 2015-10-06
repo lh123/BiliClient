@@ -2,7 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">10dp</dimen>
-	<dimen name="item_half_spacing">4.0dip</dimen>
+	<dimen name="item_spacing">8.0dp</dimen>
+	<dimen name="item_half_spacing">4.0dp</dimen>
 	<dimen name="recommend_margin_edg">15dp</dimen>
 	<dimen name="recommend_margin_center">10dp</dimen>
 	<dimen name="pstsIndicatorHeightHeight">2dp</dimen>
