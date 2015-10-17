@@ -1,5 +1,6 @@
 package com.lh.biliclient.adapter;
 
+import android.content.*;
 import android.graphics.*;
 import android.support.v4.view.*;
 import android.support.v7.widget.*;
@@ -7,13 +8,12 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import com.lh.biliclient.*;
+import com.lh.biliclient.activity.*;
 import com.lh.biliclient.bean.*;
 import com.lh.biliclient.bilibili.*;
 import com.lh.biliclient.utils.*;
 import com.lh.biliclient.widget.*;
-import com.nostra13.universalimageloader.core.*;
-import android.content.*;
-import com.lh.biliclient.activity.*;
+import android.net.*;
 
 public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 {
@@ -22,15 +22,23 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 	public static final int ONLINEVIEW=2;
 	public static final int RECOMMEND_HEAD=3;
 	public static final int RECOMNEND=4;
-	
-	private PagerAdapter banAdapter;
+
+	private BangumiBannerAdapter banAdapter;
+	private Context context;
 	private int onlineViewPosition = 0,recommendPostion = 0;
-	
-	public BangumiRecyclerAdapter(PagerAdapter banAdapter)
+	private MainBangumiData mData;
+
+	public BangumiRecyclerAdapter(BangumiBannerAdapter banAdapter, Context context)
 	{
 		this.banAdapter = banAdapter;
+		this.context = context;
 	}
 
+	public void setData(MainBangumiData data)
+	{
+		mData=data;
+	}
+	
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup p1, int type)
 	{
@@ -39,20 +47,17 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 		{
 			case BANNER:
 				//System.out.println("creat banner");
-				view = LayoutInflater.from(p1.getContext()).inflate(R.layout.banner, p1, false);
+				view = LayoutInflater.from(context).inflate(R.layout.banner, p1, false);
 				BannerViewHolder holer=new BannerViewHolder(view);
 				holer.setIsRecyclable(false);
 				return new BannerViewHolder(view);
 			case ONLINELIST_HEAD:
 				//System.out.println("creat online head");
-				view = LayoutInflater.from(p1.getContext()).inflate(R.layout.item_headview, p1, false);
+				view = LayoutInflater.from(context).inflate(R.layout.item_headview, p1, false);
 				return new HeadViewHolder(view);
 			case ONLINEVIEW:
 				//System.out.println("creat online");
-				view = LayoutInflater.from(p1.getContext()).inflate(R.layout.bangumi_online, p1, false);
-				//view=new GridLayout(p1.getContext());
-				//StaggeredGridLayoutManager.LayoutParams lp=new StaggeredGridLayoutManager.LayoutParams(StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT,StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT);
-				//view.setLayoutParams(lp);
+				view = LayoutInflater.from(context).inflate(R.layout.bangumi_grid_online_item, p1, false);
 				return new OnlineViewHolder(view);
 			case RECOMMEND_HEAD:
 				//System.out.println("creat recommend head");
@@ -60,7 +65,7 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 				return new HeadViewHolder(view);
 			case RECOMNEND:
 				//System.out.println("creat recommend");
-				view = LayoutInflater.from(p1.getContext()).inflate(R.layout.recycler_item, p1, false);
+				view = LayoutInflater.from(context).inflate(R.layout.bangumi_stagged_grid_item, p1, false);
 				return new RecommendViewHolder(view);
 		}
 		return null;
@@ -83,20 +88,18 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 			TextView txt=(TextView) p1.itemView.findViewById(R.id.bangumi_headviewTextView);
 			TextView txt2=(TextView) p1.itemView.findViewById(R.id.bangumi_headviewTextView2);
 			txt.setText("大家都在看");
-			txt2.setText("更多");
+			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_header_online,0,0,0);
+			txt2.setText("进入看看");
 		}
 		else if (p1.getItemViewType() == ONLINEVIEW)
 		{
-			StaggeredGridLayoutManager.LayoutParams lp=(StaggeredGridLayoutManager.LayoutParams) p1.itemView.getLayoutParams();
-			lp.setFullSpan(true);
+			//StaggeredGridLayoutManager.LayoutParams lp=(StaggeredGridLayoutManager.LayoutParams) p1.itemView.getLayoutParams();
+			//lp.setFullSpan(true);
 			OnlineViewHolder holder=(BangumiRecyclerAdapter.OnlineViewHolder) p1;
-			for (int i=0;i < 4;i++)
-			{
-				VideoObj temp=BiliData.onlineList.get(i);
-				ImageLoader.getInstance().displayImage(temp.getPic(), holder.imageView[i], ImageLoaderUtils.options);
-				holder.title[i].setText(temp.getTitle());
-				holder.onLineText[i].setText(temp.getOnline() + "");
-			}
+			OnlineListObj.InnerVideo temp=mData.getOnlineObj().getList().get(p2-2);
+			holder.cover.setImageURI(Uri.parse(temp.getPic()));
+			holder.title.setText(temp.getTitle());
+			holder.onLineText.setText(temp.getOnline() + "");
 		}
 		else if (p1.getItemViewType() == RECOMMEND_HEAD)
 		{
@@ -106,60 +109,41 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 			TextView txt=(TextView) p1.itemView.findViewById(R.id.bangumi_headviewTextView);
 			TextView txt2=(TextView) p1.itemView.findViewById(R.id.bangumi_headviewTextView2);
 			txt.setText("番剧推荐");
+			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_header_hot,0,0,0);
 			txt2.setText("更多");
 		}
 		else if (p1.getItemViewType() == RECOMNEND)
 		{
 			RecommendViewHolder holder=(BangumiRecyclerAdapter.RecommendViewHolder) p1;
-			BangumiRecommendObj temp=BiliData.recommendList.get(p2 - recommendPostion);
+			BangumiRecommendObj.InnerRecommend temp=mData.getRecommendObj().getList().get(p2 - recommendPostion);
 			//holder.temp=temp;
-			holder.obj=temp;
-			ViewGroup.LayoutParams lp=holder.imageView.getLayoutParams();
-			lp.height = BiliData.recommendList.get(p2 - recommendPostion).getHeight();
-			holder.imageView.setLayoutParams(lp);
+			holder.obj = temp;
+			ViewGroup.LayoutParams lp=holder.cover.getLayoutParams();
+			lp.height =temp.getHeight();
+			holder.cover.setLayoutParams(lp);
 			ViewGroup.LayoutParams edlp=holder.endepcount.getLayoutParams();
-			if(temp.getEndepcount()==-1)
+			if (temp.getEndepcount() == -1)
 			{
 				holder.endepcount.setVisibility(View.INVISIBLE);
-				edlp.height=0;
+				edlp.height = 0;
 				holder.endepcount.setLayoutParams(edlp);
 			}
 			else
 			{
 				holder.endepcount.setVisibility(View.VISIBLE);
-				edlp.height=ViewGroup.LayoutParams.WRAP_CONTENT;
+				edlp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 				holder.endepcount.setLayoutParams(edlp);
-				holder.endepcount.setText(temp.getEndepcount()+"话[完结]");
+				holder.endepcount.setText(temp.getEndepcount() + "话[完结]");
 			}
-			ImageLoader.getInstance().displayImage(temp.getImageurl(), holder.imageView, ImageLoaderUtils.options);
+			holder.cover.setImageURI(Uri.parse(temp.getImageurl()));
 			holder.title.setText(temp.getTitle());
 		}
-//		if (p2 == 0)
-//		{
-//			
-//		}
-//		else if (p2 == 1) 
-//		{
-//			
-//		}
-//		else if (p2 > 1 && p2 < 6)
-//		{
-//			
-//		}
-//		else if (p2 == 6)
-//		{
-//			
-//		}
-//		else
-//		{
-//			
-//		}
 	}
 
 	@Override
 	public int getItemViewType(int position)
 	{
-		if (BiliData.onlineList == null)
+		if (mData.getOnlineObj() == null)
 		{
 			switch (position)
 			{
@@ -181,10 +165,10 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 				case 1:
 					onlineViewPosition = 2;
 					return ONLINELIST_HEAD;
-				case 2:
+				case 2:case 3:case 4:case 5:
 					return ONLINEVIEW;
-				case 3:
-					recommendPostion = 4;
+				case 6:
+					recommendPostion = 7;
 					return RECOMMEND_HEAD;
 				default:
 					return RECOMNEND;
@@ -196,12 +180,16 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 	public int getItemCount()
 	{
 		int count=0;
-		if (BiliData.bangumiBannerList != null)
-			count+=1;
-		if(BiliData.onlineList!=null)
-			count+=2;
-		if(BiliData.recommendList!=null)
-			count+=BiliData.recommendList.size()+1;
+		if(mData==null)
+		{
+			return count;
+		}
+		if (mData.getBangumiBannerObj() != null)
+			count += 1;
+		if (mData.getOnlineObj() != null)
+			count += 5;
+		if (mData.getRecommendObj() != null)
+			count += mData.getRecommendObj().getList().size() + 1;
 		return count;
 	}
 
@@ -215,76 +203,50 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 
 	public class OnlineViewHolder extends RecyclerView.ViewHolder
 	{
-		public View[] card;
-		public ImageView[] imageView;
-		public TextView[] title;
-		public TextView[] onLineText;
+		public ScalableImageView cover;
+		public TextView title;
+		public TextView onLineText;
 		public OnlineViewHolder(View view)
 		{
 			super(view);
-			card = new View[4];
-			imageView = new ImageView[4];
-			title = new TextView[4];
-			onLineText = new TextView[4];
-			for (int i=0;i < 4;i++)
-			{
-				switch (i)
-				{
-					case 0:
-						card[i] = itemView.findViewById(R.id.cardview1);
-						break;
-					case 1:
-						card[i] = itemView.findViewById(R.id.cardview2);
-						break;
-					case 2:
-						card[i] = itemView.findViewById(R.id.cardview3);
-						break;
-					case 3:
-						card[i] = itemView.findViewById(R.id.cardview4);
-						break;
-				}
-				imageView[i] = (ImageView) card[i].findViewById(R.id.imageView);
-				title[i] = (TextView) card[i].findViewById(R.id.titleView);
-				onLineText[i] = (TextView) card[i].findViewById(R.id.onlineTextView);
-				title[i].setMaxLines(2);
-				onLineText[i].setTextColor(Color.WHITE);
-			}
+			cover = (ScalableImageView) itemView.findViewById(R.id.cover);
+			title = (TextView) itemView.findViewById(R.id.title);
+			onLineText = (TextView) itemView.findViewById(R.id.info_online);
 		}
 	}
+	
 	public class RecommendViewHolder extends RecyclerView.ViewHolder implements OnClickListener
 	{
-		public ImageView imageView;
-		public TextView title,onLineText,endepcount;
-		public BangumiRecommendObj obj;
+		public ScalableImageView cover;
+		public TextView title,endepcount;
+		public BangumiRecommendObj.InnerRecommend obj;
 		public RecommendViewHolder(View view)
 		{
 			super(view);
-			imageView = (ImageView) itemView.findViewById(R.id.imageView);
-			title = (TextView) itemView.findViewById(R.id.titleView);
-			onLineText = (TextView) itemView.findViewById(R.id.onlineTextView);
-			endepcount=(TextView) itemView.findViewById(R.id.endepcount);
+			cover = (ScalableImageView) itemView.findViewById(R.id.cover);
+			title = (TextView) itemView.findViewById(R.id.title);
+			endepcount = (TextView) itemView.findViewById(R.id.text1);
 			title.setMaxLines(2);
-			onLineText.setVisibility(View.INVISIBLE);
-			imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+			cover.setScaleType(ScalableImageView.ScaleType.CENTER_CROP);
 			itemView.setOnClickListener(this);
 		}
 
 		@Override
 		public void onClick(View p1)
 		{
-			//Toast.makeText(p1.getContext(),obj.getTitle()+getLayoutPosition(),Toast.LENGTH_LONG).show();
 			Intent i=new Intent();
-			i.setClass(itemView.getContext(),BangumiDetailAty.class);
-			i.putExtra("data",obj);
+			i.setClass(itemView.getContext(), BangumiDetailAty.class);
+			i.putExtra("spid", obj.getSpid());
 			p1.getContext().startActivity(i);
 		}
 
 	}
+	
 	public class BannerViewHolder extends RecyclerView.ViewHolder
 	{
 		public BannerViewPager banner;
 		public LinearLayout linear;
-		
+
 		public BannerViewHolder(View view)
 		{
 			super(view);
@@ -298,7 +260,7 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 	@Override
 	public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder)
 	{
-		if(holder.getItemViewType()==BANNER)
+		if (holder.getItemViewType() == BANNER)
 		{
 			BannerViewHolder h=(BangumiRecyclerAdapter.BannerViewHolder) holder;
 			h.banner.stopAutoLoop();
@@ -309,21 +271,21 @@ public class BangumiRecyclerAdapter extends RecyclerView.Adapter
 	@Override
 	public void onViewAttachedToWindow(RecyclerView.ViewHolder holder)
 	{
-		if(holder.getItemViewType()==BANNER)
+		if (holder.getItemViewType() == BANNER)
 		{
 			BannerViewHolder h=(BangumiRecyclerAdapter.BannerViewHolder) holder;
 			h.banner.startAutoLoop(5000);
 		}
 		super.onViewAttachedToWindow(holder);
 	}
-	
+
 	@Override
 	public void onViewRecycled(RecyclerView.ViewHolder holder)
 	{
 		if (holder.getItemViewType() == RECOMNEND)
 		{
 			RecommendViewHolder reHolder=(BangumiRecyclerAdapter.RecommendViewHolder) holder;
-			reHolder.imageView.setImageResource(R.drawable.white);
+			reHolder.cover.setImageResource(R.drawable.white);
 		}
 		super.onViewRecycled(holder);
 	}

@@ -54,7 +54,7 @@ public class BannerViewPager extends ViewPager
 
 	public void refreshDot(View root)
 	{
-		System.out.println("refreshdot");
+		//System.out.println("refreshdot");
 		setCurrentItem(1, false);
 		LinearLayout dotLayout=(LinearLayout) root.findViewById(R.id.linear_dot);
 		dotLayout.removeAllViews();
@@ -149,8 +149,8 @@ public class BannerViewPager extends ViewPager
 		@Override
 		public void run()
 		{
-			System.out.println("count=" + count);
-			System.out.println("current" + current);
+			//System.out.println("count=" + count);
+			//System.out.println("current" + current);
 			if (getAdapter() != null && getAdapter().getCount() >= 3)
 			{
 				if (autoloop == true)

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+	<ImageView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_weight="1"
+		android:src="@drawable/bangumi_timeline_text"
+		android:background="@drawable/bangumi_timeline_background"
+		android:scaleType="centerInside"
+		android:id="@+id/bangumu_timeline"
+		android:layout_marginRight="5dp"/>
+
+	<ImageView
+		android:layout_height="match_parent"
+		android:layout_width="wrap_content"
+		android:src="@drawable/bangumi_index_text"
+		android:background="@drawable/bangumi_index_background"
+		android:scaleType="centerInside"
+		android:layout_alignParentRight="true"
+		android:layout_alignBottom="@id/bangumu_timeline"
+		android:layout_alignTop="@id/bangumu_timeline"
+		android:id="@+id/bangumi_index"
+		android:layout_weight="1.0"
+		android:layout_marginLeft="5dp"/>
+
+</LinearLayout>
+

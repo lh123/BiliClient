@@ -1,4 +1,5 @@
 package com.lh.biliclient.activity;
+import android.net.*;
 import android.os.*;
 import android.support.design.widget.*;
 import android.support.v4.view.*;
@@ -11,41 +12,49 @@ import com.lh.biliclient.*;
 import com.lh.biliclient.adapter.*;
 import com.lh.biliclient.bean.*;
 import com.lh.biliclient.bilibili.*;
+import com.lh.biliclient.fragment.*;
+import com.lh.biliclient.fragment.base.*;
 import com.lh.biliclient.utils.*;
 import com.lh.biliclient.widget.*;
-import com.nostra13.universalimageloader.core.*;
 import java.util.*;
 
 import android.support.v7.widget.Toolbar;
+import com.lh.biliclient.presenter.*;
 
-public class BangumiDetailAty extends AppCompatActivity
+public class BangumiDetailAty extends AppCompatActivity implements ViewPager.OnPageChangeListener,IBangumiDetailAty
 {
+	public static final int INITDATA_SUCCESS=0;
+	public static final int INITDATA_FAIL=1;
+	
 	private Toolbar toolbar;
 	private TabLayout tabLayout;
 	private ViewPager viewPager;
-	private BangumiRecommendObj obj;
-	private ImageView cover;
+	private ScalableImageView cover;
 	private TextView title,infoViews,infoDanmakus,infoDate;
-	public static BangumiDetail detail;
-	public static ArrayList<BPRankObj> bpRank;
+	//private BangumiDetailObj detail;
 	private BangumiDetailViewPagerAdapter adapter;
 	private ScrollableLayout scrollableLayout;
+	private int spid;
+	private String seasonId=null;
+	private BangumiDetailAtyPresenter mPresenter;
+	
+	private BangumiAtyDetailFragment bangumiAtyDetailFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.bangumi_detail_aty);
-		obj=(BangumiRecommendObj) getIntent().getSerializableExtra("data");
+		spid=getIntent().getIntExtra("spid",-1);
+		seasonId=getIntent().getStringExtra("seasonId");
+		mPresenter=new BangumiDetailAtyPresenter(this);
 		initToolbar();
 		initView();
-		initData();
 	}
 
 	private void initView()
 	{
-		//ll=(LinearLayout) findViewById(R.id.bangumi_linearlayout);
-		cover=(ImageView) findViewById(R.id.cover);
+		cover=(ScalableImageView) findViewById(R.id.cover);
 		title=(TextView) findViewById(R.id.title);
 		infoViews=(TextView) findViewById(R.id.info_views);
 		infoDanmakus=(TextView) findViewById(R.id.info_danmakus);
@@ -53,37 +62,19 @@ public class BangumiDetailAty extends AppCompatActivity
 		tabLayout=(TabLayout) findViewById(R.id.tab_layout);
 		viewPager=(ViewPager) findViewById(R.id.viewpager);
 		scrollableLayout=(ScrollableLayout) findViewById(R.id.bangumi_scrollablelayout);
+		mPresenter.getBangumiDetailData(spid,seasonId);
 	}
 
-	private void initData()
+	@Override
+	public void onBangumiDataChange(BangumiDetailObj obj)
 	{
-		new Thread(new Runnable(){
+		postData(obj);
+	}
 
-				@Override
-				public void run()
-				{
-					detail=BiliApi.getInstance().getBangumiDetail(obj.getSpid());
-					bpRank=BiliApi.getInstance().getBPRankList(detail.getEpisodesList().get(0).getAvId());
-					toolbar.post(new Runnable(){
-
-							@Override
-							public void run()
-							{
-								adapter=new BangumiDetailViewPagerAdapter(getSupportFragmentManager(),scrollableLayout);
-								if(bpRank==null||bpRank.size()==0)
-									adapter.isBPRank=false;
-								viewPager.setAdapter(adapter);
-								tabLayout.setupWithViewPager(viewPager);
-								infoViews.setText(StringUtils.generateStringNum(detail.getPlayCount()));
-								infoDanmakus.setText(StringUtils.generateStringNum(detail.getDanmakuCount()));
-								infoDate.setText(StringUtils.generateTime(detail.getWeekday()));
-								title.setText(detail.getTitle());
-								ImageLoader.getInstance().displayImage(detail.getCover(),cover,ImageLoaderUtils.options);
-							}
-						});
-				}
-			}).start();
-		
+	@Override
+	public void onBangumiDataError()
+	{
+		Toast.makeText(this,"加载失败",Toast.LENGTH_SHORT).show();
 	}
 
 	private void initToolbar()
@@ -102,5 +93,53 @@ public class BangumiDetailAty extends AppCompatActivity
 				}
 			});
 	}
+	
+	private void postData(BangumiDetailObj detail)
+	{
+		Bundle data=new Bundle();
+		data.putSerializable("data",detail);
+		adapter=new BangumiDetailViewPagerAdapter(getSupportFragmentManager());
+		bangumiAtyDetailFragment = new BangumiAtyDetailFragment();
+		bangumiAtyDetailFragment.setArguments(data);
+		adapter.fragmentList=new ArrayList<BangumiDetailBaseFragment>();
+		scrollableLayout.getHelper().setCurrentScrollableContainer(bangumiAtyDetailFragment);
+		int current=0;
+		if (detail.getResult().getAllowBp().equals("1"))
+		{
+			current = 1;
+			BangumiAtyBPFragment bangumiAtyBPFragment = new BangumiAtyBPFragment();
+			bangumiAtyBPFragment.setArguments(data);
+			adapter.fragmentList.add(bangumiAtyBPFragment);
+			
+		}
+		adapter.fragmentList.add(bangumiAtyDetailFragment);
+		viewPager.setAdapter(adapter);
+		viewPager.setOnPageChangeListener(BangumiDetailAty.this);
+		tabLayout.setupWithViewPager(viewPager);
+		viewPager.setCurrentItem(current, false);
+		infoViews.setText(StringUtils.formateNumber(detail.getResult().getPlayCount()));
+		infoDanmakus.setText(StringUtils.formateNumber(detail.getResult().getDanmakuCount()));
+		if (detail.getResult().getIsFinish().equals("0"))
+			infoDate.setText(StringUtils.generateTime(detail.getResult().getWeekday()));
+		else
+			infoDate.setText(String.format(getResources().getString(R.string.bangumi_item_end_fmt), detail.getResult().getTotalCount()));
+		title.setText(detail.getResult().getTitle());
+		cover.setImageURI(Uri.parse(detail.getResult().getCover()));
+	}
+	
+	@Override
+	public void onPageScrolled(int p1, float p2, int p3)
+	{
+	}
 
+	@Override
+	public void onPageSelected(int p1)
+	{
+		scrollableLayout.getHelper().setCurrentScrollableContainer(adapter.fragmentList.get(p1));
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int p1)
+	{
+	}
 }

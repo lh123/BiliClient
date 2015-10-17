@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/cardview"
+	app:cardCornerRadius="2dp"
+	android:clickable="true"
+	android:layout_height="wrap_content"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:layout_width="wrap_content">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto">
+		<com.lh.biliclient.widget.ScalableImageView
+			android:id="@+id/cover"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:placeholderImage="@color/gray_light" />
+		<TextView
+			android:textAppearance="@style/TextSubtitle"
+			android:textColor="?android:textColorPrimary"
+			android:id="@+id/title"
+			android:padding="8.0dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:maxLines="2"
+			android:layout_below="@id/cover" />
+		<TextView
+			android:textAppearance="@style/TextBody"
+			android:id="@+id/text1"
+			android:paddingLeft="8.0dp"
+			android:paddingRight="8.0dp"
+			android:paddingBottom="8.0dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/title" />
+		<TextView
+			android:textAppearance="@style/TextBody"
+			android:gravity="center_vertical"
+			android:id="@+id/text2"
+			android:paddingLeft="8.0dp"
+			android:paddingRight="8.0dp"
+			android:paddingBottom="8.0dp"
+			android:visibility="gone"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:drawablePadding="2.0dp"
+			android:layout_below="@id/title"
+			android:layout_alignParentRight="true" />
+	</RelativeLayout>
+	
+</android.support.v7.widget.CardView>

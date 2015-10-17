@@ -7,8 +7,15 @@
         <attr name="civ_fill_color" format="color" />
     </declare-styleable>
 	
-	<declare-styleable name="StickyScrollView">
-        <attr name="stuckShadowHeight" format="dimension" />
-        <attr name="stuckShadowDrawable" format="reference" />
+	<attr name="tagViewStyle" format="reference" />
+	<declare-styleable name="TagView">
+        <attr name="tagCornerRadius" format="dimension" />
+        <attr name="tagPadding" format="dimension" />
+        <attr name="tagUppercase" format="boolean" />
+    </declare-styleable>
+	
+	<declare-styleable name="ScalableImageView">
+        <attr name="aspectRadioWidth" format="integer" />
+		<attr name="aspectRadioHeight" format="integer" />
     </declare-styleable>
 </resources>

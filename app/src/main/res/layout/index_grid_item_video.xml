@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:cardCornerRadius="2dp"
+	android:clickable="true"
+	android:layout_height="wrap_content"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:layout_width="wrap_content">
+	<RelativeLayout
+		android:paddingBottom="4.0dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<com.lh.biliclient.widget.ScalableImageView
+			android:id="@+id/cover"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:placeholderImage="@drawable/bili_default_image_tv_16_10"
+			app:placeholderImageScaleType="centerCrop"
+			app:aspectRadioWidth="16"
+			app:aspectRadioHeight="10" />
+		<TextView
+			android:textAppearance="@style/TextSubtitle"
+			android:textColor="?android:textColorPrimary"
+			android:ellipsize="end"
+			android:id="@+id/title"
+			android:paddingLeft="8.0dp"
+			android:paddingRight="8.0dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4.0dp"
+			android:layout_marginBottom="4.0dp"
+			android:maxLines="2"
+			android:layout_below="@id/cover"/>
+		<android.support.v4.widget.Space
+			android:id="@+id/anchor"
+			android:layout_width="0.0dp"
+			android:layout_height="20.0dp"
+			android:layout_below="@id/title"
+			android:layout_alignParentBottom="true"
+			android:layout_centerHorizontal="true" />
+		<TextView
+			android:textAppearance="@style/TextSmall"
+			android:textColor="@color/gray_dark"
+			android:id="@+id/info_views"
+			android:paddingLeft="8.0dp"
+			android:paddingTop="2.0dp"
+			android:paddingRight="8.0dp"
+			android:paddingBottom="2.0dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:drawableLeft="@drawable/ic_info_views2"
+			android:drawablePadding="2.0dp"
+			android:layout_alignLeft="@id/cover"
+			android:layout_alignBottom="@id/anchor"/>
+		<TextView
+			android:textAppearance="@style/TextSmall"
+			android:textColor="@color/gray_dark"
+			android:id="@+id/info_danmakus"
+			android:paddingLeft="8.0dp"
+			android:paddingTop="2.0dp"
+			android:paddingRight="8.0dp"
+			android:paddingBottom="2.0dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:drawableLeft="@drawable/ic_info_danmakus2"
+			android:drawablePadding="2.0dp"
+			android:layout_toRightOf="@id/anchor"
+			android:layout_alignRight="@id/cover"
+			android:layout_alignBottom="@id/anchor" />
+	</RelativeLayout>
+</android.support.v7.widget.CardView>

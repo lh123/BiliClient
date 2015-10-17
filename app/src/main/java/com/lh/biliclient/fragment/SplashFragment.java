@@ -1,14 +1,14 @@
 package com.lh.biliclient.fragment;
+import android.graphics.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.view.*;
 import android.widget.*;
 import com.lh.biliclient.*;
-import com.lh.biliclient.utils.*;
-import android.graphics.*;
 import com.lh.biliclient.bean.*;
 import com.lh.biliclient.bilibili.*;
-import android.view.ViewGroup.*;
+import com.lh.biliclient.utils.*;
+import com.lh.biliclient.widget.*;
 
 public class SplashFragment extends Fragment
 {

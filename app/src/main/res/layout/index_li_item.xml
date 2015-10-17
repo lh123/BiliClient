@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@+id/icon"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+        <include layout="@layout/layout_badges" />
+        <com.lh.biliclient.widget.ScalableImageView
+			android:id="@+id/cover"
+			android:layout_width="64.0dp"
+			android:layout_height="wrap_content"
+			app:aspectRadioWidth="10"
+			app:aspectRadioHeight="10" />
+    </FrameLayout>
+    <TextView
+		android:textAppearance="@style/TextTitle"
+		android:gravity="center_vertical"
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="8.0dp"
+		android:layout_marginTop="10.0dp"
+		android:layout_marginRight="8.0dp"
+		android:singleLine="true"
+		android:layout_toRightOf="@id/icon" />
+    <TextView
+		android:textAppearance="@style/TextBody"
+		android:gravity="center_vertical"
+		android:id="@+id/text1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="4.0dp"
+		android:singleLine="true"
+		android:layout_below="@id/title"
+		android:layout_alignLeft="@id/title"
+		android:layout_alignRight="@id/title" />
+    <TextView
+		android:textAppearance="@style/TextBody"
+		android:gravity="center_vertical"
+		android:id="@+id/text2"
+		android:visibility="gone"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="4.0dp"
+		android:singleLine="true"
+		android:layout_below="@id/text1"
+		android:layout_alignLeft="@id/title"
+		android:layout_alignRight="@id/title" />
+</RelativeLayout>

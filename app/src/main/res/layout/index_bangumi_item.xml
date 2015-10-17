@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:cardCornerRadius="2dp"
+	android:clickable="true"
+	android:layout_height="wrap_content"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:layout_width="wrap_content"
+	android:layout_marginBottom="2dp">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		xmlns:app="http://schemas.android.com/apk/res-auto">
+
+		<com.lh.biliclient.widget.ScalableImageView
+			android:id="@+id/cover"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			fresco:placeholderImage="@color/gray_light"
+			fresco:placeholderImageScaleType="centerCrop"
+			fresco:aspectRadioWidth="320"
+			fresco:aspectRadioHeight="420"
+			xmlns:fresco="http://schemas.android.com/apk/res-auto"/>
+
+		<include
+			layout="@layout/layout_badges"/>
+
+		<TextView
+			android:textAppearance="@style/TextSubtitle"
+			android:textColor="?android:textColorPrimary"
+			android:ellipsize="end"
+			android:id="@+id/title"
+			android:paddingLeft="8.0dp"
+			android:paddingRight="8.0dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4.0dp"
+			android:lines="2"
+			android:layout_below="@id/cover"/>
+
+		<TextView
+			android:textAppearance="@style/TextBody"
+			android:id="@+id/text1"
+			android:paddingLeft="8.0dp"
+			android:paddingRight="8.0dp"
+			android:paddingBottom="8.0dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4.0dp"
+			android:singleLine="true"
+			android:layout_below="@id/title"/>
+
+	</RelativeLayout>
+
+</android.support.v7.widget.CardView>
+

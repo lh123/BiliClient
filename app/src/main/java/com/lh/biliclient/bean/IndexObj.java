@@ -1,281 +1,382 @@
 package com.lh.biliclient.bean;
+import com.alibaba.fastjson.annotation.*;
+import java.util.*;
 
 public class IndexObj
 {
-	private String head_goto;
-	private String head_param;
-	private String head_style;
-	private String head_title;
-	private String head_type;
-	private String cover;
-	private String danmaku;
-	private String go_to;
-	private int height;
-	private String is_random;
-	private String last_ep;
-	private String param;
-	private String play;
-	private String small_cover;
-	private String style;
-	private String title;
-	private int width;
-	private String badge2;
-	private String badge_bg;
-	private String badge_color;
-	private String online;
-	private String up;
-	private String up_face;
-	private String desc1;
-	private String desc2;
+	private int code;
+	private String message;
+	private String screen;
+	private String ver;
+	private List<ResultObj> result;
 
-	public void setHead_type(String head_type)
+	public void setCode(int code)
 	{
-		this.head_type = head_type;
+		this.code = code;
 	}
 
-	public String getHead_type()
+	public int getCode()
 	{
-		return head_type;
+		return code;
 	}
 
-	public void setHead_goto(String head_goto)
+	public void setMessage(String message)
 	{
-		this.head_goto = head_goto;
+		this.message = message;
 	}
 
-	public String getHead_goto()
+	public String getMessage()
 	{
-		return head_goto;
+		return message;
 	}
 
-	public void setHead_param(String head_param)
+	public void setScreen(String screen)
 	{
-		this.head_param = head_param;
+		this.screen = screen;
 	}
 
-	public String getHead_param()
+	public String getScreen()
 	{
-		return head_param;
+		return screen;
 	}
 
-	public void setHead_style(String head_style)
+	public void setVer(String ver)
 	{
-		this.head_style = head_style;
+		this.ver = ver;
 	}
 
-	public String getHead_style()
+	public String getVer()
 	{
-		return head_style;
+		return ver;
 	}
 
-	public void setHead_title(String head_title)
+	public void setResult(List<ResultObj> result)
 	{
-		this.head_title = head_title;
+		this.result = result;
 	}
 
-	public String getHead_title()
+	public List<ResultObj> getResult()
 	{
-		return head_title;
+		return result;
 	}
-
-	public void setBadge_color(String badge_color)
+	
+	public static class ResultObj
 	{
-		this.badge_color = badge_color;
+		private List<Body> body;
+		private ResultObjHead head;
+		private String type;
+
+
+		public void setBody(List<Body> body)
+		{
+			this.body = body;
+		}
+
+		public List<Body> getBody()
+		{
+			return body;
+		}
+
+		public void setHead(ResultObjHead head)
+		{
+			this.head = head;
+		}
+
+		public ResultObjHead getHead()
+		{
+			return head;
+		}
+
+		public void setType(String type)
+		{
+			this.type = type;
+		}
+
+		public String getType()
+		{
+			return type;
+		}
 	}
-
-	public String getBadge_color()
+	
+	public static class Body
 	{
-		return badge_color;
+		private String cover;
+		private String danmaku;
+		@JSONField(name="goto")
+		private String goTo;
+		private int height=-1;
+		@JSONField(name="is_random")
+		private String isRandom;
+		@JSONField(name="last_ep")
+		private String lastEp;
+		private String param;
+		private String play;
+		@JSONField(name="small_cover")
+		private String small_cover;
+		private String style;
+		private String title;
+		private int width=-1;
+		private String badge2;
+		@JSONField(name="badge_bg")
+		private String badgeBg;
+		@JSONField(name="badge_color")
+		private String badgeColor;
+		private String online;
+		private String up;
+		@JSONField(name="up_face")
+		private String upFace;
+		private String desc1;
+		private String desc2;
+
+
+		public void setCover(String cover)
+		{
+			this.cover = cover;
+		}
+
+		public String getCover()
+		{
+			return cover;
+		}
+
+		public void setDanmaku(String danmaku)
+		{
+			this.danmaku = danmaku;
+		}
+
+		public String getDanmaku()
+		{
+			return danmaku;
+		}
+
+		public void setGoTo(String goTo)
+		{
+			this.goTo = goTo;
+		}
+
+		public String getGoTo()
+		{
+			return goTo;
+		}
+
+		public void setHeight(int height)
+		{
+			this.height = height;
+		}
+
+		public int getHeight()
+		{
+			return height;
+		}
+
+		public void setIsRandom(String isRandom)
+		{
+			this.isRandom = isRandom;
+		}
+
+		public String getIsRandom()
+		{
+			return isRandom;
+		}
+
+		public void setLastEp(String lastEp)
+		{
+			this.lastEp = lastEp;
+		}
+
+		public String getLastEp()
+		{
+			return lastEp;
+		}
+
+		public void setParam(String param)
+		{
+			this.param = param;
+		}
+
+		public String getParam()
+		{
+			return param;
+		}
+
+		public void setPlay(String play)
+		{
+			this.play = play;
+		}
+
+		public String getPlay()
+		{
+			return play;
+		}
+
+		public void setSmall_cover(String small_cover)
+		{
+			this.small_cover = small_cover;
+		}
+
+		public String getSmall_cover()
+		{
+			return small_cover;
+		}
+
+		public void setStyle(String style)
+		{
+			this.style = style;
+		}
+
+		public String getStyle()
+		{
+			return style;
+		}
+
+		public void setTitle(String title)
+		{
+			this.title = title;
+		}
+
+		public String getTitle()
+		{
+			return title;
+		}
+
+		public void setWidth(int width)
+		{
+			this.width = width;
+		}
+
+		public int getWidth()
+		{
+			return width;
+		}
+
+		public void setBadge2(String badge2)
+		{
+			this.badge2 = badge2;
+		}
+
+		public String getBadge2()
+		{
+			return badge2;
+		}
+
+		public void setBadgeBg(String badgeBg)
+		{
+			this.badgeBg = badgeBg;
+		}
+
+		public String getBadgeBg()
+		{
+			return badgeBg;
+		}
+
+		public void setBadgeColor(String badgeColor)
+		{
+			this.badgeColor = badgeColor;
+		}
+
+		public String getBadgeColor()
+		{
+			return badgeColor;
+		}
+
+		public void setOnline(String online)
+		{
+			this.online = online;
+		}
+
+		public String getOnline()
+		{
+			return online;
+		}
+
+		public void setUp(String up)
+		{
+			this.up = up;
+		}
+
+		public String getUp()
+		{
+			return up;
+		}
+
+		public void setUpFace(String upFace)
+		{
+			this.upFace = upFace;
+		}
+
+		public String getUpFace()
+		{
+			return upFace;
+		}
+
+		public void setDesc1(String desc1)
+		{
+			this.desc1 = desc1;
+		}
+
+		public String getDesc1()
+		{
+			return desc1;
+		}
+
+		public void setDesc2(String desc2)
+		{
+			this.desc2 = desc2;
+		}
+
+		public String getDesc2()
+		{
+			return desc2;
+		}
 	}
-
-
-	public void setCover(String cover)
+	
+	public static class ResultObjHead
 	{
-		this.cover = cover;
-	}
+		@JSONField(name="goto")
+		private String goTo;
+		private String param;
+		private String style;
+		private String title;
 
-	public String getCover()
-	{
-		return cover;
-	}
 
-	public void setDanmaku(String danmaku)
-	{
-		this.danmaku = danmaku;
-	}
+		public void setGoTo(String goTo)
+		{
+			this.goTo = goTo;
+		}
 
-	public String getDanmaku()
-	{
-		return danmaku;
-	}
+		public String getGoTo()
+		{
+			return goTo;
+		}
 
-	public void setGo_to(String go_to)
-	{
-		this.go_to = go_to;
-	}
+		public void setParam(String param)
+		{
+			this.param = param;
+		}
 
-	public String getGo_to()
-	{
-		return go_to;
-	}
+		public String getParam()
+		{
+			return param;
+		}
 
-	public void setHeight(int height)
-	{
-		this.height = height;
-	}
+		public void setStyle(String style)
+		{
+			this.style = style;
+		}
 
-	public int getHeight()
-	{
-		return height;
-	}
+		public String getStyle()
+		{
+			return style;
+		}
 
-	public void setIs_random(String is_random)
-	{
-		this.is_random = is_random;
-	}
+		public void setTitle(String title)
+		{
+			this.title = title;
+		}
 
-	public String getIs_random()
-	{
-		return is_random;
-	}
-
-	public void setLast_ep(String last_ep)
-	{
-		this.last_ep = last_ep;
-	}
-
-	public String getLast_ep()
-	{
-		return last_ep;
-	}
-
-	public void setParam(String param)
-	{
-		this.param = param;
-	}
-
-	public String getParam()
-	{
-		return param;
-	}
-
-	public void setPlay(String play)
-	{
-		this.play = play;
-	}
-
-	public String getPlay()
-	{
-		return play;
-	}
-
-	public void setSmall_cover(String small_cover)
-	{
-		this.small_cover = small_cover;
-	}
-
-	public String getSmall_cover()
-	{
-		return small_cover;
-	}
-
-	public void setStyle(String style)
-	{
-		this.style = style;
-	}
-
-	public String getStyle()
-	{
-		return style;
-	}
-
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
-
-	public String getTitle()
-	{
-		return title;
-	}
-
-	public void setWidth(int width)
-	{
-		this.width = width;
-	}
-
-	public int getWidth()
-	{
-		return width;
-	}
-
-	public void setBadge2(String badge2)
-	{
-		this.badge2 = badge2;
-	}
-
-	public String getBadge2()
-	{
-		return badge2;
-	}
-
-	public void setBadge_bg(String badge_bg)
-	{
-		this.badge_bg = badge_bg;
-	}
-
-	public String getBadge_bg()
-	{
-		return badge_bg;
-	}
-
-	public void setOnline(String online)
-	{
-		this.online = online;
-	}
-
-	public String getOnline()
-	{
-		return online;
-	}
-
-	public void setUp(String up)
-	{
-		this.up = up;
-	}
-
-	public String getUp()
-	{
-		return up;
-	}
-
-	public void setUp_face(String up_face)
-	{
-		this.up_face = up_face;
-	}
-
-	public String getUp_face()
-	{
-		return up_face;
-	}
-
-	public void setDesc1(String desc1)
-	{
-		this.desc1 = desc1;
-	}
-
-	public String getDesc1()
-	{
-		return desc1;
-	}
-
-	public void setDesc2(String desc2)
-	{
-		this.desc2 = desc2;
-	}
-
-	public String getDesc2()
-	{
-		return desc2;
+		public String getTitle()
+		{
+			return title;
+		}
 	}
 }

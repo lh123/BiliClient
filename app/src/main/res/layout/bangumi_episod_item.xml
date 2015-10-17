@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:foreground="?android:attr/selectableItemBackground">
+
+	<TextView
+		android:gravity="center"
+		android:id="@+id/title"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="4.0dip"
+		android:minWidth="30.0dip"
+		android:minHeight="36.0dip"/>
+
+	<TextView
+		android:textColor="@color/white"
+		android:id="@+id/badge2"
+		android:background="@color/accent"
+		android:paddingLeft="2.0dp"
+		android:paddingTop="1.0dp"
+		android:paddingRight="2.0dip"
+		android:paddingBottom="1.0dip"
+		android:visibility="gone"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="NEW"/>
+
+</FrameLayout>
+

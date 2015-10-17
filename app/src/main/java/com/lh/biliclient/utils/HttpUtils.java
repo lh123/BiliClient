@@ -22,13 +22,16 @@ public class HttpUtils
 			connect.setConnectTimeout(3000);
 			connect.setRequestProperty("User-Agent", "Mozilla/5.0 BiliDroid/4.5.1 (bbcallen@gmail.com)");
 			InputStream is=connect.getInputStream();
-			int len=-1;
+			InputStreamReader isr=new InputStreamReader(is,"utf-8");
+			BufferedReader br=new BufferedReader(isr);
 			StringBuilder sb=new StringBuilder();
-			byte[] by=new byte[1024];
-			while ((len = is.read(by)) != -1)
+			String temp;
+			while ((temp = br.readLine()) != null)
 			{
-				sb.append(new String(by, 0, len));
+				sb.append(temp);
 			}
+			br.close();
+			isr.close();
 			is.close();
 			return sb.toString();
 		}
@@ -48,13 +51,16 @@ public class HttpUtils
 			connect.setConnectTimeout(3000);
 			connect.setRequestProperty("User-Agent", "Mozilla/5.0 BiliDroid/4.5.1 (bbcallen@gmail.com)");
 			InputStream is=connect.getInputStream();
-			int len=-1;
+			InputStreamReader isr=new InputStreamReader(is,"utf-8");
+			BufferedReader br=new BufferedReader(isr);
 			StringBuilder sb=new StringBuilder();
-			byte[] by=new byte[1024];
-			while ((len = is.read(by)) != -1)
+			String temp;
+			while ((temp = br.readLine()) != null)
 			{
-				sb.append(new String(by, 0, len));
+				sb.append(temp);
 			}
+			br.close();
+			isr.close();
 			is.close();
 			return sb.toString();
 		}
@@ -70,15 +76,19 @@ public class HttpUtils
 		try
 		{
 			InputStream is=getInputStreamWithCache(urlPath, filePath, name,match);
+			InputStreamReader isr=new InputStreamReader(is,"utf-8");
+			BufferedReader br=new BufferedReader(isr);
 			if (is == null)
 				return null;
-			int len=-1;
 			StringBuilder sb=new StringBuilder();
-			byte[] temp=new byte[1024];
-			while ((len = is.read(temp)) != -1)
+			String temp;
+			while ((temp=br.readLine())!=null)
 			{
-				sb.append(new String(temp, 0, len));
+				sb.append(temp);
 			}
+			br.close();
+			isr.close();
+			is.close();
 			return sb.toString();
 		}
 		catch (IOException e)
@@ -117,14 +127,21 @@ public class HttpUtils
 			if (connect.getResponseCode() == 200)
 			{
 				InputStream httpIs=connect.getInputStream();
+				InputStreamReader isr=new InputStreamReader(httpIs,"utf-8");
+				BufferedReader br=new BufferedReader(isr);
 				OutputStream os=new FileOutputStream(file);
-				int len=-1;
-				byte[] by=new byte[1024];
-				while ((len = httpIs.read(by)) != -1)
+				OutputStreamWriter osw=new OutputStreamWriter(os,"utf-8");
+				BufferedWriter bw=new BufferedWriter(osw);
+				String temp;
+				while ((temp = br.readLine()) != null)
 				{
-					os.write(by, 0, len);
+					bw.write(temp);
 				}
+				bw.close();
+				osw.close();
 				os.close();
+				br.close();
+				isr.close();
 				httpIs.close();
 				sp.edit().putLong(name, connect.getLastModified()).commit();
 			}

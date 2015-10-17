@@ -1,138 +1,198 @@
 package com.lh.biliclient.bean;
+import java.util.*;
 
 public class IndexBannerObj
 {
-	private String title;
-	private String remark;
-	private String remark2;
-	private String style;
-	private String imagekey;
-	private String imageurl;
-	private int width;
-	private int height;
-	private String type;
-	private String weburl;
-	private String spname;
-	private int spid;
+	private int code;
+	private String ver;
+	private String screen;
+	private int count;
+	private List<InnerBanner> list;
 
-
-	public void setTitle(String title)
+	public void setCode(int code)
 	{
-		this.title = title;
+		this.code = code;
 	}
 
-	public String getTitle()
+	public int getCode()
 	{
-		return title;
+		return code;
 	}
 
-	public void setRemark(String remark)
+	public void setVer(String ver)
 	{
-		this.remark = remark;
+		this.ver = ver;
 	}
 
-	public String getRemark()
+	public String getVer()
 	{
-		return remark;
+		return ver;
 	}
 
-	public void setRemark2(String remark2)
+	public void setScreen(String screen)
 	{
-		this.remark2 = remark2;
+		this.screen = screen;
 	}
 
-	public String getRemark2()
+	public String getScreen()
 	{
-		return remark2;
+		return screen;
 	}
 
-	public void setStyle(String style)
+	public void setCount(int count)
 	{
-		this.style = style;
+		this.count = count;
 	}
 
-	public String getStyle()
+	public int getCount()
 	{
-		return style;
+		return count;
 	}
 
-	public void setImagekey(String imagekey)
+	public void setList(List<InnerBanner> list)
 	{
-		this.imagekey = imagekey;
+		this.list = list;
 	}
 
-	public String getImagekey()
+	public List<InnerBanner> getList()
 	{
-		return imagekey;
+		return list;
 	}
-
-	public void setImageurl(String imageurl)
+	
+	public static class InnerBanner
 	{
-		this.imageurl = imageurl;
-	}
+		private String title;
+		private String remark;
+		private String remark2;
+		private String style;
+		private String imagekey;
+		private String imageurl;
+		private int width;
+		private int height;
+		private String type;
+		private String weburl;
+		private String spname;
+		private int spid;
 
-	public String getImageurl()
-	{
-		return imageurl;
-	}
 
-	public void setWidth(int width)
-	{
-		this.width = width;
-	}
+		public void setTitle(String title)
+		{
+			this.title = title;
+		}
 
-	public int getWidth()
-	{
-		return width;
-	}
+		public String getTitle()
+		{
+			return title;
+		}
 
-	public void setHeight(int height)
-	{
-		this.height = height;
-	}
+		public void setRemark(String remark)
+		{
+			this.remark = remark;
+		}
 
-	public int getHeight()
-	{
-		return height;
-	}
+		public String getRemark()
+		{
+			return remark;
+		}
 
-	public void setType(String type)
-	{
-		this.type = type;
-	}
+		public void setRemark2(String remark2)
+		{
+			this.remark2 = remark2;
+		}
 
-	public String getType()
-	{
-		return type;
-	}
+		public String getRemark2()
+		{
+			return remark2;
+		}
 
-	public void setWeburl(String weburl)
-	{
-		this.weburl = weburl;
-	}
+		public void setStyle(String style)
+		{
+			this.style = style;
+		}
 
-	public String getWeburl()
-	{
-		return weburl;
-	}
+		public String getStyle()
+		{
+			return style;
+		}
 
-	public void setSpname(String spname)
-	{
-		this.spname = spname;
-	}
+		public void setImagekey(String imagekey)
+		{
+			this.imagekey = imagekey;
+		}
 
-	public String getSpname()
-	{
-		return spname;
-	}
+		public String getImagekey()
+		{
+			return imagekey;
+		}
 
-	public void setSpid(int spid)
-	{
-		this.spid = spid;
-	}
+		public void setImageurl(String imageurl)
+		{
+			this.imageurl = imageurl;
+		}
 
-	public int getSpid()
-	{
-		return spid;
+		public String getImageurl()
+		{
+			return imageurl;
+		}
+
+		public void setWidth(int width)
+		{
+			this.width = width;
+		}
+
+		public int getWidth()
+		{
+			return width;
+		}
+
+		public void setHeight(int height)
+		{
+			this.height = height;
+		}
+
+		public int getHeight()
+		{
+			return height;
+		}
+
+		public void setType(String type)
+		{
+			this.type = type;
+		}
+
+		public String getType()
+		{
+			return type;
+		}
+
+		public void setWeburl(String weburl)
+		{
+			this.weburl = weburl;
+		}
+
+		public String getWeburl()
+		{
+			return weburl;
+		}
+
+		public void setSpname(String spname)
+		{
+			this.spname = spname;
+		}
+
+		public String getSpname()
+		{
+			return spname;
+		}
+
+		public void setSpid(int spid)
+		{
+			this.spid = spid;
+		}
+
+		public int getSpid()
+		{
+			return spid;
+		}
 	}
 }

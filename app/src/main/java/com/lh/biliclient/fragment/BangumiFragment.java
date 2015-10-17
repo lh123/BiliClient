@@ -1,18 +1,16 @@
 package com.lh.biliclient.fragment;
 import android.os.*;
-import android.support.v4.app.*;
 import android.support.v4.widget.*;
 import android.support.v7.widget.*;
 import android.view.*;
 import android.widget.*;
 import com.lh.biliclient.*;
 import com.lh.biliclient.adapter.*;
-import com.lh.biliclient.bilibili.*;
-import android.content.*;
-import java.util.*;
 import com.lh.biliclient.bean.*;
+import com.lh.biliclient.fragment.base.*;
+import com.lh.biliclient.presenter.*;
 
-public class BangumiFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
+public class BangumiFragment extends MainBaseFragment implements SwipeRefreshLayout.OnRefreshListener,IMainBangumiFragment
 {
 	public static final int REFRESHING=1;
 	public static final int REFRESH_SUCCESS=2;
@@ -22,19 +20,8 @@ public class BangumiFragment extends Fragment implements SwipeRefreshLayout.OnRe
 	private RecyclerView recyclerView;
 	public BangumiRecyclerAdapter bangumiAdapter;
 	public BangumiBannerAdapter banAdapter;
-	public static RefreshHandler handler;
-	private ViewItemDecoration decoration;
-
-	@Override
-	public void onAttach(Context context)
-	{
-		handler=new RefreshHandler();
-		banAdapter=new BangumiBannerAdapter();
-		bangumiAdapter=new BangumiRecyclerAdapter(banAdapter);
-		decoration=new ViewItemDecoration(getActivity().getResources().getDimensionPixelSize(R.dimen.recommend_margin_center),getActivity().getResources().getDimensionPixelSize(R.dimen.recommend_margin_edg));
-		super.onAttach(context);
-	}
-
+	private BangumiItemDecoration decoration;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -42,16 +29,13 @@ public class BangumiFragment extends Fragment implements SwipeRefreshLayout.OnRe
 		initFragment();
 		return view;
 	}
-
-	@Override
-	public void onStart()
-	{
-		
-		super.onStart();
-	}
 	
 	private void initFragment()
 	{
+		MainDataPresenter.getInstance().registerMainBangumiDataObserver(this);
+		banAdapter=new BangumiBannerAdapter();
+		bangumiAdapter=new BangumiRecyclerAdapter(banAdapter,getActivity());
+		decoration=new BangumiItemDecoration(getActivity().getResources().getDimensionPixelSize(R.dimen.item_margin_center),getActivity().getResources().getDimensionPixelSize(R.dimen.item_margin_edg));
 		recyclerView=(RecyclerView) view.findViewById(R.id.my_recycler_view);
 		refreshLayout=(SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);	
 		StaggeredGridLayoutManager lm=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
@@ -61,47 +45,35 @@ public class BangumiFragment extends Fragment implements SwipeRefreshLayout.OnRe
 		recyclerView.addItemDecoration(decoration);
 		recyclerView.setAdapter(bangumiAdapter);
 		refreshLayout.setOnRefreshListener(this);
+		MainDataPresenter.getInstance().getMainBangumiData();
 	}
 
+	@Override
+	public void onBangumiDataRefresh(MainBangumiData data,boolean status)
+	{
+		//System.out.println("refresh_______");
+		if(status==false)
+		{
+			Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
+		}
+		refreshLayout.setRefreshing(false);
+		banAdapter.setData(data.getBangumiBannerObj());
+		bangumiAdapter.setData(data);
+		banAdapter.notifyDataSetChanged();
+		bangumiAdapter.notifyDataSetChanged();
+	}
+	
 	@Override
 	public void onRefresh()
 	{
 		refreshLayout.setRefreshing(true);
-		new Thread(new Runnable(){
-
-				@Override
-				public void run()
-				{
-					BiliData.onlineList=BiliApi.getInstance().getOnlineList();
-					BiliData.bangumiBannerList=BiliApi.getInstance().getBangumiBannerList();
-					BiliData.recommendList=BiliApi.getInstance().getRecommendList();
-					if(BiliData.onlineList==null)
-						handler.sendEmptyMessage(REFRESH_FAIL);
-					else
-						handler.sendEmptyMessage(REFRESH_SUCCESS);
-				}}).start();
+		MainDataPresenter.getInstance().refreshMainBangumiData();
 	}
 	
-	public class RefreshHandler extends Handler
+	@Override
+	public String getTitle()
 	{
-		@Override
-		public void handleMessage(Message msg)
-		{
-			switch(msg.what)
-			{
-				case REFRESH_SUCCESS:
-					refreshLayout.setRefreshing(false);
-					bangumiAdapter.notifyDataSetChanged();
-					banAdapter.notifyDataSetChanged();
-					break;
-				case REFRESH_FAIL:
-					refreshLayout.setRefreshing(false);
-					bangumiAdapter.notifyDataSetChanged();
-					banAdapter.notifyDataSetChanged();
-					Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
-					break;
-			}
-		}
-		
+		return "番剧";
 	}
+	
 }

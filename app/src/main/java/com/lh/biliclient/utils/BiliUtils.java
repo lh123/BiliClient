@@ -52,12 +52,20 @@ public class BiliUtils
 		return MODULE+"?"+params+getSign(params);
 	}
 	
-	public static String getBangumiDetailApi(int spid)
+	public static String getBangumiDetailBySpidApi(int spid)
 	{
 		//_device=android&_hwid=0a5cec7cde29d8d0&_ulv=10000&access_key=6d7912b084e9a92d24553f2cea9dcedc&appkey=c1b107428d337928&build=405001&platform=android&sp_id=43628&ts=1443437898000&type=sp&sign=fa8dc879fd95ddc0880a16f0243dcef9
 		String params="_device=android"+"&_ulv=10000&access_key="+ACCESS_KEY+"&appkey="+APPKEY+"&build=405001&platform=android"+"&sp_id="+spid+"&ts="+System.currentTimeMillis()+"&type=sp";
 		return BANGUMI+"?"+params+getSign(params);
 	}
+	
+	public static String getBangumiDetailBySeasonidApi(String seasonId)
+	{
+		//_device=android&_hwid=0a5cec7cde29d8d0&_ulv=10000&access_key=6d7912b084e9a92d24553f2cea9dcedc&appkey=c1b107428d337928&build=405001&platform=android&season_id=1509&ts=1444281789000&type=bangumi&sign=ddc62cf238c57eb71074a6a0de758276 
+		String params="_device=android"+"&_ulv=10000&access_key="+ACCESS_KEY+"&appkey="+APPKEY+"&build=405001&platform=android"+"&season_id="+seasonId+"&ts="+System.currentTimeMillis()+"&type=bangumi";
+		return BANGUMI+"?"+params+getSign(params);
+	}
+	
 	public static String getBpList(String aid)
 	{
 		//_device=android&_hwid=0a5cec7cde29d8d0&_ulv=10000&access_key=6d7912b084e9a92d24553f2cea9dcedc&aid=2862151&appkey=c1b107428d337928&build=405001&platform=android

@@ -4,4 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 	<string name="feedback_choose_episode">选集</string>
+	<string name="bangumi_season_desc_title">介绍</string>
+	<string name="bangumi_season_title">番剧分集</string>
+	<string name="bangumi_season_serials_title">官方系列</string>
+	<string name="bangumi_item_end_fmt">已完结，%1$s话全</string>
+	<string name="more">更多</string>
 </resources>

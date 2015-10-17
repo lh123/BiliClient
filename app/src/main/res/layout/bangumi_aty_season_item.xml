@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:clickable="true"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:layout_height="wrap_content"
+	android:layout_width="92dp">
+
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+
+		<com.lh.biliclient.widget.ScalableImageView
+			android:id="@+id/cover"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:placeholderImage="@drawable/bili_default_image_tv_12_16"
+			app:placeholderImageScaleType="centerCrop"
+			app:actualImageScaleType="centerCrop"
+			app:roundedCornerRadius="@dimen/corner_radius"
+			app:aspectRadioWidth="12"
+			app:aspectRadioHeight="16"/>
+
+		<TextView
+			android:textColor="?android:attr/textColorPrimary"
+			android:gravity="center"
+			android:id="@+id/title"
+			android:padding="8.0dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/cover"/>
+
+	</RelativeLayout>
+
+</FrameLayout>
+

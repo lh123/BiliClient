@@ -4,9 +4,15 @@
     <dimen name="activity_vertical_margin">10dp</dimen>
 	<dimen name="item_spacing">8.0dp</dimen>
 	<dimen name="item_half_spacing">4.0dp</dimen>
-	<dimen name="recommend_margin_edg">15dp</dimen>
-	<dimen name="recommend_margin_center">10dp</dimen>
+	<dimen name="item_margin_edg">14dp</dimen>
+	<dimen name="item_margin_center">10dp</dimen>
 	<dimen name="pstsIndicatorHeightHeight">2dp</dimen>
 	<dimen name="banner_dot">8dp</dimen>
 	<dimen name="banner_dot_margin">2dp</dimen>
+	<dimen name="alerdialog_size">250dp</dimen>
+	<dimen name="text_size_medium">12.0sp</dimen>
+    <dimen name="text_size_small">10.0sp</dimen>
+	<dimen name="text_size_large">14.0sp</dimen>
+	<dimen name="text_size_xlarge">16.0sp</dimen>
+	<dimen name="corner_radius">2.0dp</dimen>
 </resources>

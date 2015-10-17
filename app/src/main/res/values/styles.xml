@@ -4,6 +4,8 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
+		<item name="android:textColorSecondary">@color/abc_secondary_text_material_light</item>
+		<item name="android:textColorPrimary">@color/abc_primary_text_material_light</item>
     </style>
 	
 	<style name="tabLayout" parent="Widget.Design.TabLayout">
@@ -13,5 +15,34 @@
 		<item name="tabPaddingEnd">12dp</item>
 		<item name="tabBackground">@android:color/transparent</item>
 		<item name="tabSelectedTextColor">@color/white</item>
+	</style>
+	
+	<style name="Widget"/>
+    <style name="Widget.TagView" parent="@android:style/Widget.TextView">
+        <item name="tagCornerRadius">6dp</item>
+        <item name="tagPadding">8dp</item>
+        <item name="tagUppercase">true</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+	
+	<style name="TextTitle">
+		<item name="android:textSize">@dimen/text_size_xlarge</item>
+		<item name="android:textColor">?android:textColorPrimary</item>
+	</style>
+	
+	<style name="TextSubtitle">
+		<item name="android:textSize">@dimen/text_size_large</item>
+		<item name="android:textColor">?android:textColorPrimary</item>
+	</style>
+	
+	<style name="TextBody">
+        <item name="android:textColor">?android:textColorSecondary</item>
+		<item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+	<style name="TextSmall">
+		<item name="android:textSize">@dimen/text_size_small</item>
 	</style>
 </resources>

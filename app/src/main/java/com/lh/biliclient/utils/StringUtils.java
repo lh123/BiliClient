@@ -32,7 +32,7 @@ public class StringUtils
 		return "连载中,每周"+week+"更新";
 	}
 	
-	public static String generateStringNum(String num)
+	public static String formateNumber(String num)
 	{
 		int n=Integer.parseInt(num);
 		String result;
@@ -45,5 +45,21 @@ public class StringUtils
 			result=num;
 		}
 		return result;
+	}
+	
+	public static String formateIndex(String index)
+	{
+		if(index.indexOf(".")>0)
+			return "第"+index+"话";
+		int mIndex=0;
+		try
+		{
+			mIndex = Integer.parseInt(index);
+		}
+		catch (NumberFormatException e)
+		{
+			return index;
+		}
+		return String.format("第%02d话", mIndex);
 	}
 }

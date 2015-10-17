@@ -1,7 +1,7 @@
 package com.lh.biliclient.adapter;
 
-import android.content.*;
 import android.graphics.*;
+import android.os.*;
 import android.support.v7.app.*;
 import android.support.v7.widget.*;
 import android.view.*;
@@ -10,19 +10,35 @@ import android.widget.*;
 import com.lh.biliclient.*;
 import com.lh.biliclient.activity.*;
 import com.lh.biliclient.bean.*;
+import com.lh.biliclient.bilibili.*;
 import com.lh.biliclient.utils.*;
 import com.lh.biliclient.widget.*;
-import com.nostra13.universalimageloader.core.*;
+import java.util.*;
 
 public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 {
 	public static final int HEAD=0;
 	public static final int NORMAL=1;
-	private int title=1,count=0;
-	private RecyclerView recyclerView;
-	private GridLayoutManager gl;
+	private Callback mCallback;
+	private String mIndex;
+	private MessageHandler handler;
+	private BangumigBPRankEpisodesRecyclerViewAdapter mAdapter;
+	public BPRankObj bpRank;
+	public BangumiDetailObj detail;
+	
+	public BangumiAtyBPRecyclerViewAdapter(BangumigBPRankEpisodesRecyclerViewAdapter adapter,BangumiDetailObj detail)
+	{
+		this.detail=detail;
+		mIndex=detail.getResult().getEpisodes().get(0).getIndex();
+		mAdapter=adapter;
+		handler=new MessageHandler();
+	}
 
-	private BangumigEpisodesRecyclerViewAdapter adapter;
+	public void setIndex(String mIndex)
+	{
+		this.mIndex = mIndex;
+	}
+
 	
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup p1, int type)
@@ -47,16 +63,16 @@ public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 		if(p2==0)
 		{
 			BPHeadViewHolder holder=(BangumiAtyBPRecyclerViewAdapter.BPHeadViewHolder) p1;
-			holder.title.setText(String.format("第%02d话",title));
-			count=BangumiDetailAty.bpRank.get(0).getUsers();
-			holder.count.setText(count+"人");
+			holder.title.setText(StringUtils.formateIndex(mIndex));
+			if(bpRank!=null&&bpRank.getData().getList().size()!=0)
+				holder.count.setText(bpRank.getData().getUsers()+"人");
 		}
 		else
 		{
 			int index=p2-1;
 			BPViewHolder holder=(BangumiAtyBPRecyclerViewAdapter.BPViewHolder) p1;
-			BPRankObj obj=BangumiDetailAty.bpRank.get(index);
-			ImageLoader.getInstance().displayImage(obj.getFace(),holder.avatar,ImageLoaderUtils.options);
+			BPRankObj.ListObj obj=bpRank.getData().getList().get(index);
+			//ImageLoader.getInstance().displayImage(obj.getFace(),holder.avatar,ImageLoaderUtils.options);
 			holder.name.setText(obj.getUname());
 			if(index<3)
 			{
@@ -82,10 +98,10 @@ public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 	@Override
 	public int getItemCount()
 	{
-		if(BangumiDetailAty.bpRank==null)
+		if(bpRank==null)
 			return 1;
 		else
-			return BangumiDetailAty.bpRank.size()+1;
+			return bpRank.getData().getList().size()+1;
 	}
 
 	@Override
@@ -95,6 +111,11 @@ public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 			return HEAD;
 		else
 			return NORMAL;
+	}
+	
+	public void setCallback(Callback back)
+	{
+		mCallback=back;
 	}
 	
 	class BPHeadViewHolder extends RecyclerView.ViewHolder implements OnClickListener
@@ -118,20 +139,11 @@ public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 		@Override
 		public void onClick(View p1)
 		{
-			Toast.makeText(p1.getContext(),"test",Toast.LENGTH_SHORT).show();
-			recyclerView=(RecyclerView) LayoutInflater.from(p1.getContext()).inflate(R.layout.recyclerview,null);
-			gl=new GridLayoutManager(p1.getContext(),4);
-			adapter=new BangumigEpisodesRecyclerViewAdapter();
-			recyclerView.setLayoutManager(gl);
-			recyclerView.setAdapter(adapter);
-			AlertDialog.Builder builder=new AlertDialog.Builder(p1.getContext());
-			builder.setTitle("集数选择");
-			builder.setView(recyclerView);
-			adapter.notifyDataSetChanged();
-			builder.show();
+			mCallback.onHeadClick();
 		}
 		
 	}
+	
 	class BPViewHolder extends RecyclerView.ViewHolder
 	{
 		private TextView rank,name,message;
@@ -143,6 +155,19 @@ public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 			name=(TextView) itemView.findViewById(R.id.name);
 			message=(TextView) itemView.findViewById(R.id.message);
 			avatar=(CircleImageView) itemView.findViewById(R.id.avatar);
+		}
+	}
+	
+	public interface Callback
+	{
+		public void onHeadClick()
+	}
+	class MessageHandler extends Handler
+	{
+		@Override
+		public void handleMessage(Message msg)
+		{
+			notifyDataSetChanged();
 		}
 	}
 }
