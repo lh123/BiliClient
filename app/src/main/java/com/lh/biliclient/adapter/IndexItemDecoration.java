@@ -20,7 +20,7 @@ public class IndexItemDecoration extends RecyclerView.ItemDecoration
 		int position=parent.getChildAdapterPosition(view);
 		int spanIndex=((GridLayoutManager.LayoutParams) view.getLayoutParams()).getSpanIndex();
 		int type=parent.getAdapter().getItemViewType(position);
-		if(type==IndexRecyclerAdapter.VIDEO_GRID)
+		if(type==IndexRecyclerAdapter.VIDEO_GRID||type==IndexRecyclerAdapter.GRID_LIVE)
 		{
 			outRect.top=margin/2;
 			outRect.bottom=margin/2;
@@ -39,7 +39,12 @@ public class IndexItemDecoration extends RecyclerView.ItemDecoration
 		{
 			outRect.bottom=margin/2;
 		}
-		else if(type==IndexRecyclerAdapter.FOOTER||type==IndexRecyclerAdapter.HEAD||type==IndexRecyclerAdapter.HORISCROLL||type==IndexRecyclerAdapter.MENU)
+		else if(type==IndexRecyclerAdapter.HORISCROLL)
+		{
+			outRect.top=margin/2;
+			outRect.bottom=margin/2;
+		}
+		else if(type==IndexRecyclerAdapter.FOOTER||type==IndexRecyclerAdapter.HEAD||type==IndexRecyclerAdapter.MENU)
 		{
 			outRect.top=margin/2;
 			outRect.bottom=margin/2;

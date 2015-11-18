@@ -14,14 +14,16 @@ import com.lh.biliclient.bilibili.*;
 import com.lh.biliclient.utils.*;
 import com.lh.biliclient.widget.*;
 import java.util.*;
+import android.net.*;
+import com.facebook.drawee.view.*;
 
 public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 {
 	public static final int HEAD=0;
 	public static final int NORMAL=1;
+	
 	private Callback mCallback;
 	private String mIndex;
-	private MessageHandler handler;
 	private BangumigBPRankEpisodesRecyclerViewAdapter mAdapter;
 	public BPRankObj bpRank;
 	public BangumiDetailObj detail;
@@ -31,7 +33,6 @@ public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 		this.detail=detail;
 		mIndex=detail.getResult().getEpisodes().get(0).getIndex();
 		mAdapter=adapter;
-		handler=new MessageHandler();
 	}
 
 	public void setIndex(String mIndex)
@@ -72,6 +73,7 @@ public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 			int index=p2-1;
 			BPViewHolder holder=(BangumiAtyBPRecyclerViewAdapter.BPViewHolder) p1;
 			BPRankObj.ListObj obj=bpRank.getData().getList().get(index);
+			holder.avatar.setImageURI(Uri.parse(obj.getFace()));
 			//ImageLoader.getInstance().displayImage(obj.getFace(),holder.avatar,ImageLoaderUtils.options);
 			holder.name.setText(obj.getUname());
 			if(index<3)
@@ -147,27 +149,19 @@ public class BangumiAtyBPRecyclerViewAdapter extends RecyclerView.Adapter
 	class BPViewHolder extends RecyclerView.ViewHolder
 	{
 		private TextView rank,name,message;
-		private CircleImageView avatar;
+		private SimpleDraweeView avatar;
 		public BPViewHolder(View view)
 		{
 			super(view);
 			rank=(TextView) itemView.findViewById(R.id.rank);
 			name=(TextView) itemView.findViewById(R.id.name);
 			message=(TextView) itemView.findViewById(R.id.message);
-			avatar=(CircleImageView) itemView.findViewById(R.id.avatar);
+			avatar=(SimpleDraweeView) itemView.findViewById(R.id.avatar);
 		}
 	}
 	
 	public interface Callback
 	{
 		public void onHeadClick()
-	}
-	class MessageHandler extends Handler
-	{
-		@Override
-		public void handleMessage(Message msg)
-		{
-			notifyDataSetChanged();
-		}
 	}
 }

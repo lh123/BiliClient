@@ -10,6 +10,7 @@ import com.lh.biliclient.widget.*;
 import android.net.*;
 import android.view.ViewGroup.*;
 import android.graphics.*;
+import com.facebook.drawee.view.*;
 
 public class IndexRecyclerAdapter extends RecyclerView.Adapter
 {
@@ -20,8 +21,9 @@ public class IndexRecyclerAdapter extends RecyclerView.Adapter
 	public static final int FOOTER=4;
 	public static final int FULL_ITEM=5;
 	public static final int MENU=6;
-	public static final int HORISCROLL=7;
-
+	public static final int GRID_LIVE=7;
+	public static final int HORISCROLL=8;
+	
 	public PagerAdapter banAdapter;
 	private IndexData data;
 
@@ -67,6 +69,14 @@ public class IndexRecyclerAdapter extends RecyclerView.Adapter
 			case MENU:
 				view=minflate.inflate(R.layout.item_menu,p1,false);
 				holder=new MenuHolder(view);
+				return holder;
+			case GRID_LIVE:
+				view=minflate.inflate(R.layout.index_grid_item_live,p1,false);
+				holder=new GridLiveHolder(view);
+				return holder;
+			case FOOTER:
+				view=minflate.inflate(R.layout.index_more,p1,false);
+				holder=new FooterHolder(view);
 				return holder;
 		}
 		return null;
@@ -143,7 +153,23 @@ public class IndexRecyclerAdapter extends RecyclerView.Adapter
 				holder.container.addView(view);
 			}
 		}
-		
+		else if(type==HEAD&&p2==10)
+		{
+			result=data.getIndexObj().getResult().get(2);
+			HeadHolder holder=(IndexRecyclerAdapter.HeadHolder) p1;
+			holder.leftText.setText(result.getHead().getTitle());
+		}
+		else if(type==GRID_LIVE&&p2>=11&&p2<=12)
+		{
+			result=data.getIndexObj().getResult().get(2);
+			body=result.getBody().get(p2-11);
+			GridLiveHolder holder=(IndexRecyclerAdapter.GridLiveHolder) p1;
+			holder.cover.setImageURI(Uri.parse(body.getCover()));
+			holder.avatar.setImageURI(Uri.parse(body.getUpFace()));
+			holder.title.setText(body.getUp());
+			holder.uName.setText(body.getTitle());
+			holder.infoOnline.setText(body.getOnline());
+		}
 	}
 
 	@Override
@@ -151,7 +177,7 @@ public class IndexRecyclerAdapter extends RecyclerView.Adapter
 	{
 		if (data==null||data.getIndexObj() == null)
 			return 0;
-		return 10;
+		return 14;
 	}
 
 	@Override
@@ -161,7 +187,7 @@ public class IndexRecyclerAdapter extends RecyclerView.Adapter
 		{
 			case 0:
 				return BANNER;
-			case 1:case 7:
+			case 1:case 7:case 10:
 				return HEAD;
 			case 2:case 3:case 4:case 5:
 				return VIDEO_GRID;
@@ -171,6 +197,10 @@ public class IndexRecyclerAdapter extends RecyclerView.Adapter
 				return HORISCROLL;
 			case 9:
 				return MENU;
+			case 11:case 12:
+				return GRID_LIVE;
+			case 13:
+				return FOOTER;
 		}
 		return -1;
 	}
@@ -252,6 +282,41 @@ public class IndexRecyclerAdapter extends RecyclerView.Adapter
 		}
 	}
 	
+	public class GridLiveHolder extends RecyclerView.ViewHolder
+	{
+		public ScalableImageView cover;
+		public SimpleDraweeView avatar;
+		public TextView uName;
+		public TextView infoOnline;
+		public TextView title;
+		
+		public GridLiveHolder(View view)
+		{
+			super(view);
+			cover=(ScalableImageView) itemView.findViewById(R.id.cover);
+			avatar=(SimpleDraweeView) itemView.findViewById(R.id.avatar);
+			uName=(TextView) itemView.findViewById(R.id.uname);
+			infoOnline=(TextView) itemView.findViewById(R.id.info_online);
+			title=(TextView) itemView.findViewById(R.id.title);
+		}
+	}
+	
+	public class FooterHolder extends RecyclerView.ViewHolder
+	{
+		public TextView more,refreshTips;
+		public ImageView refresh;
+		
+		public FooterHolder(View view)
+		{
+			super(view);
+			more=(TextView) itemView.findViewById(R.id.more);
+			refreshTips=(TextView) itemView.findViewById(R.id.refresh_tips);
+			refresh=(ImageView) itemView.findViewById(R.id.refresh);
+			ViewCompat.setElevation(more,refresh.getContext().getResources().getDimension(R.dimen.corner_radius));
+			refresh.setColorFilter(refresh.getContext().getResources().getColor(R.color.pink));
+		}
+	}
+	
 	public class SpanLookUp extends GridLayoutManager.SpanSizeLookup
 	{
 		@Override
@@ -259,7 +324,7 @@ public class IndexRecyclerAdapter extends RecyclerView.Adapter
 		{
 			switch (position)
 			{
-				case 0:case 1:case 6:case 7:case 8:case 9:
+				case 0:case 1:case 6:case 7:case 8:case 9:case 10:case 13:
 					return 2;
 			}
 			return 1;

@@ -15,4 +15,5 @@
 	<dimen name="text_size_large">14.0sp</dimen>
 	<dimen name="text_size_xlarge">16.0sp</dimen>
 	<dimen name="corner_radius">2.0dp</dimen>
+	<dimen name="avatar_size">34.0dp</dimen>
 </resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:cardCornerRadius="2dp"
+	android:clickable="true"
+	android:layout_height="wrap_content"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:layout_width="wrap_content">
+	<RelativeLayout
+		android:paddingBottom="4.0dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		<com.lh.biliclient.widget.ScalableImageView
+			android:id="@+id/cover"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:placeholderImage="@drawable/bili_default_image_tv_16_10"
+			app:placeholderImageScaleType="centerCrop"
+			app:aspectRadioWidth="16"
+			app:aspectRadioHeight="10" />
+		<com.facebook.drawee.view.SimpleDraweeView
+			android:id="@+id/avatar"
+			android:layout_width="@dimen/avatar_size"
+			android:layout_height="@dimen/avatar_size"
+			android:layout_marginLeft="@dimen/item_half_spacing"
+			android:layout_alignBottom="@+id/uname"
+			app:roundAsCircle="true"
+			app:actualImageScaleType="centerCrop"
+			app:placeholderImage="@drawable/bili_default_avatar"
+			app:roundingBorderWidth="1.0dp"
+			app:roundingBorderColor="@color/white" />
+		<TextView
+			android:textAppearance="@style/TextSubtitle"
+			android:textColor="?android:textColorPrimary"
+			android:id="@+id/uname"
+			android:padding="4.0dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:layout_toRightOf="@id/avatar"
+			android:layout_below="@+id/cover" />
+		<TextView
+			android:textAppearance="@style/TextSmall"
+			android:textColor="@color/gray_dark"
+			android:layout_gravity="center_vertical"
+			android:id="@+id/info_online"
+			android:background="@drawable/shape_gray_round_background"
+			android:paddingLeft="2.0dp"
+			android:paddingRight="2.0dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4.0dp"
+			android:singleLine="true"
+			android:layout_below="@+id/avatar"
+			android:layout_alignLeft="@+id/avatar" />
+		<TextView
+			android:textAppearance="@style/TextBody"
+			android:layout_gravity="center_vertical"
+			android:id="@+id/title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/item_half_spacing"
+			android:layout_marginTop="4.0dp"
+			android:singleLine="true"
+			android:layout_toRightOf="@+id/info_online"
+			android:layout_below="@+id/avatar" />
+	</RelativeLayout>
+</android.support.v7.widget.CardView>

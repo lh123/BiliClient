@@ -92,7 +92,7 @@ public class BannerViewPager extends ViewPager
 			@Override
 			public void onPageSelected(int pPosition)
 			{
-				System.out.println(pPosition);
+				//System.out.println(pPosition);
 				for (int i=0;i < dots.size();i++)
 				{
 					if (i == pPosition - 1)

@@ -7,7 +7,9 @@
 	<color name="gray_trans">#44999999</color>
 	<color name="gray_light">#ffdcdcdc</color>
 	<color name="gray_lighter">#ffeaeaea</color>
-	<color name="black">#000000</color>
+	<color name="black">#ff000000</color>
+    <color name="black_light">#ff333333</color>
+    <color name="black_trans">#66000000</color>
 	<color name="primary">#E91E63</color>
 	<color name="primary_dark">#C2185B</color>
 	<color name="accent">#448AFF</color>
